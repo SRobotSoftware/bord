@@ -3,9 +3,7 @@ const chalk = require('chalk')
 const fs = require('fs')
 const firstBy = require('thenby')
 const os = require('os')
-const path = require('path')
-
-const {basename, join} = path
+const { join } = require('path')
 
 const log = console.log
 const storagePath = join(os.homedir(), '.bord')
@@ -177,6 +175,48 @@ switch(command) {
     if (!priority) break
     boardTaskIds(foundBoards, prioritizeTask, priority[1])
     foundTasks.forEach(taskId => prioritizeTask(taskId, [priority[1]]))
+    break
+  case 'help':
+  case 'h':
+    log(chalk.green(
+`
+Bord Help
+---
+
+bord
+      Displays all tasks on all boards
+      USAGE: bord
+
+(t)ask {@board OPTIONAL} '{task description}' {p:[1-3] priority OPTIONAL}
+      Adds a new task
+      USAGE: bord task @shopping 'milk' p:2
+
+(c)heck {@board or multiple # task ID numbers}
+      Inverts the checkbox on one or more tasks or boards
+      USAGE: bord check 2 42 54
+
+(m)ove {@board or mutliple # task ID Numbers} {@board destination}
+      Moves one or more tasks or boards to a target board
+      USAGE: bord move 2 42 @shopping @stuffToDoLater
+
+(e)dit {# task ID Number} '{task description}' {p:[1-3] priority OPTIONAL}
+      Edits the description of a target task
+      USAGE: bord edit 2 'bread' p:1
+
+(p)rioritize {@board or multiple # task ID numbers} {p:[1-3] priority}
+      Changes priority of one or more tasks or boards
+      USAGE: bord prioritize @shopping p:3
+
+(d)elete {@board or multiple # task ID numbers}
+      Deletes one or more tasks or boards
+      USAGE: bord delete @importantThings
+
+(h)elp
+      This
+      USAGE: bord h
+`
+    ))
+    process.exit(0)
     break
   default:
     log('Command not recognized')
