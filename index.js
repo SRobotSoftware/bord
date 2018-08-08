@@ -12,7 +12,21 @@ const storageFile = join(storagePath, 'data.json')
 if (!fs.existsSync(storagePath)) fs.mkdirSync(storagePath)
 if (!fs.existsSync(storageFile)) fs.writeFileSync(storageFile, JSON.stringify({ index: 0, tasks: [] }), 'utf8')
 const data = JSON.parse(fs.readFileSync(storageFile, 'utf8'))
+const boardTest = /(?:^|,)\@(\w+)/g
+const taskTest = /(?:^|\,)(\d+)/g
+const priorityTest = /p:([1-3])$/
+const str = process.argv.slice(3)
+const command = process.argv[2]
+const priority = priorityTest.exec(str)
+const foundBoards = []
+const foundTasks = []
 
+for(let boardMatch = boardTest.exec(str); boardMatch; boardMatch = boardTest.exec(str)) {
+  foundBoards.push(boardMatch[1])
+}
+for (let taskMatch = taskTest.exec(str); taskMatch; taskMatch = taskTest.exec(str)) {
+  foundTasks.push(taskMatch[1])
+}
 
 function newTask(description, board, priority) {
   const task = {
@@ -121,21 +135,6 @@ function boardTaskIds(boards, func, args = []) {
   boards.forEach(board => data.tasks
     .filter(task => task.board === board)
     .forEach(task => func(task.id, ...args)))
-}
-
-const boardTest = /(?:^|,)\@(\w+)/g
-const taskTest = /(?:^|\,)(\d+)/g
-const priorityTest = /p:([1-3])$/
-const str = process.argv.slice(3)
-const command = process.argv[2]
-const priority = priorityTest.exec(str)
-const foundBoards = []
-const foundTasks = []
-for(let boardMatch = boardTest.exec(str); boardMatch; boardMatch = boardTest.exec(str)) {
-  foundBoards.push(boardMatch[1])
-}
-for (let taskMatch = taskTest.exec(str); taskMatch; taskMatch = taskTest.exec(str)) {
-  foundTasks.push(taskMatch[1])
 }
 
 if (command)
