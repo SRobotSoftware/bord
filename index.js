@@ -2,20 +2,19 @@
 const chalk = require('chalk')
 const fs = require('fs')
 const firstBy = require('thenby')
+const os = require('os')
+const path = require('path')
+
+const {basename, join} = path
 
 const log = console.log
+const storagePath = join(os.homedir(), '.task')
+const storageFile = join(storagePath, 'data.json')
 
-// Boards are referenced by @{string}
-// Tasks are referenced by #{int}
+if (!fs.existsSync(storagePath)) fs.mkdirSync(storagePath)
+if (!fs.existsSync(storageFile)) fs.writeFileSync(storageFile, JSON.stringify({ index: 0, tasks: [] }), 'utf8')
+const data = JSON.parse(fs.readFileSync(storageFile, 'utf8'))
 
-let data
-
-try {
-  data = JSON.parse(fs.readFileSync('data.json', 'utf8'))
-} catch (error) {
-  if (error.code === 'ENOENT') data = { index: 0, tasks: [] }
-  else process.exit(1)
-}
 
 function newTask(description, board, priority) {
   const task = {
@@ -185,5 +184,5 @@ switch(command) {
 }
 printTasks()
 
-fs.writeFileSync('data.json', JSON.stringify(data), 'utf8')
+fs.writeFileSync(storageFile, JSON.stringify(data), 'utf8')
 process.exit(0)
