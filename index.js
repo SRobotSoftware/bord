@@ -8,7 +8,7 @@ const path = require('path')
 const {basename, join} = path
 
 const log = console.log
-const storagePath = join(os.homedir(), '.task')
+const storagePath = join(os.homedir(), '.bord')
 const storageFile = join(storagePath, 'data.json')
 
 if (!fs.existsSync(storagePath)) fs.mkdirSync(storagePath)
@@ -90,7 +90,7 @@ function printTask(taskId) {
 
 function printTasks(board) {
   log(chalk.cyan(
-`Task
+`Bord
 ---
 `
   ))

@@ -1,10 +1,10 @@
 {
-  "name": "tasks",
+  "name": "bord",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "bin": {
-    "task": "./index.js"
+    "bord": "./index.js"
   },
   "author": "",
   "license": "ISC",
