@@ -1,12 +1,20 @@
 {
   "name": "bord",
   "version": "1.0.0",
-  "description": "",
+  "description": "A simple command line based taskboard featuring multiple boards",
   "main": "index.js",
   "bin": {
     "bord": "./index.js"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Zmixon/bord.git"
+  },
+  "homepage": "https://github.com/Zmixon/bord#readme",
+  "bugs": {
+    "url": "https://github.com/Zmixon/bord/issues"
+  },
+  "author": "Zachary Mixon (https://github.com/Zmixon)",
   "license": "ISC",
   "dependencies": {
     "chalk": "^2.4.1",
