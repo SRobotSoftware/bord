@@ -144,7 +144,7 @@ switch(command) {
     const taskTargetBoard = (process.argv[3] && boardTest.test(process.argv[3])) ? process.argv[3].slice(1) : null
     const taskDescTargetTrimmed = (taskTargetBoard) ? process.argv.slice(4) : process.argv.slice(3)
     const taskDescPriorityTrimmed = (priority) ? taskDescTargetTrimmed.slice(0, -1) : taskDescTargetTrimmed
-    newTask(Array.isArray(taskDescPriorityTrimmed) ? 'Hello World' : taskDescPriorityTrimmed, taskTargetBoard || 'tasks', (priority) ? priority[1] : 1)
+    newTask(Array.isArray(taskDescPriorityTrimmed) && !taskDescPriorityTrimmed.length ? 'Hello World' : taskDescPriorityTrimmed, taskTargetBoard || 'tasks', (priority) ? priority[1] : 1)
     break
   case 'delete':
   case 'd':
